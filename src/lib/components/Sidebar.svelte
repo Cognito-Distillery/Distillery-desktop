@@ -28,11 +28,11 @@
 {#if isHorizontal()}
 	<nav class="h-12 border-b border-base-300 flex items-center justify-between px-5 shrink-0">
 		<div class="flex items-center gap-1">
-			<a href="/" class="text-primary mr-3" title="Distillery">
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-					<path d="M12 2L2 7l10 5 10-5-10-5z"/>
-					<path d="M2 17l10 5 10-5"/>
-					<path d="M2 12l10 5 10-5"/>
+			<a href="/" class="mr-3" title="Distillery">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<path d="M13 16A5 5 0 1 1 3 16C3 13.5 4.5 11.5 6 10.2V6A2 2 0 0 1 10 6V10.2C11.5 11.5 13 13.5 13 16Z" fill="currentColor" class="text-primary"/>
+					<path d="M9 5C12.5 5 18 6.5 18 11V12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="text-primary"/>
+					<path d="M18 14.5L16.2 17.2C15.6 18.1 16.3 19.5 17.5 19.5H18.5C19.7 19.5 20.4 18.1 19.8 17.2L18 14.5Z" fill="currentColor" class="text-primary"/>
 				</svg>
 			</a>
 
@@ -97,11 +97,11 @@
 {:else}
 	<nav class="w-14 h-screen border-r border-base-300 flex flex-col items-center justify-between py-5 shrink-0">
 		<div class="flex flex-col items-center gap-1">
-			<a href="/" class="text-primary mb-4" title="Distillery">
-				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-					<path d="M12 2L2 7l10 5 10-5-10-5z"/>
-					<path d="M2 17l10 5 10-5"/>
-					<path d="M2 12l10 5 10-5"/>
+			<a href="/" class="mb-4" title="Distillery">
+				<svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+					<path d="M13 16A5 5 0 1 1 3 16C3 13.5 4.5 11.5 6 10.2V6A2 2 0 0 1 10 6V10.2C11.5 11.5 13 13.5 13 16Z" fill="currentColor" class="text-primary"/>
+					<path d="M9 5C12.5 5 18 6.5 18 11V12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="text-primary"/>
+					<path d="M18 14.5L16.2 17.2C15.6 18.1 16.3 19.5 17.5 19.5H18.5C19.7 19.5 20.4 18.1 19.8 17.2L18 14.5Z" fill="currentColor" class="text-primary"/>
 				</svg>
 			</a>
 
