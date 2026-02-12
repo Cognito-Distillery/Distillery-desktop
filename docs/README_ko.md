@@ -1,6 +1,12 @@
-# Distillery
+<p align="center">
+  <img src="../src-tauri/icons/128x128.png" width="96" alt="Distillery" />
+</p>
 
-> *생각을 증류하여 지식으로 숙성시키다.*
+<h1 align="center">Distillery</h1>
+
+<p align="center">
+  <em>생각을 증류하여 지식으로 숙성시키다.</em>
+</p>
 
 ---
 
@@ -51,26 +57,26 @@ Distillery는 위스키 증류소의 과정을 빌려 **생각을 정제하는 �
 ## 플로팅 메모 (빠른 몰팅)
 
 메인 앱으로 전환하지 않고 어디서든 생각을 즉시 기록할 수 있는 작은 플로팅 창입니다.
+앱은 **시스템 트레이**에 상주하며, 메인 창을 닫아도 백그라운드에서 계속 실행됩니다.
 
-### macOS
+| 플랫폼 | 단축키 | 설정 |
+|--------|--------|------|
+| **macOS** | `Cmd+Shift+M` | 바로 동작 |
+| **Windows** | `Ctrl+Shift+M` | 바로 동작 |
+| **Linux (X11)** | `Ctrl+Shift+M` | 바로 동작 |
+| **Linux (Wayland)** | 원하는 키 | 컴포지터에서 DBus 명령 바인딩 (아래 참고) |
 
-글로벌 단축키 `Cmd+Shift+M`이 바로 동작합니다.
-
-### Windows
-
-글로벌 단축키 `Ctrl+Shift+M`이 바로 동작합니다.
-
-### Linux (Wayland)
+### Linux Wayland 설정
 
 Wayland는 앱 수준의 글로벌 단축키를 지원하지 않습니다.
-대신 앱이 DBus 서비스를 제공하므로, 사용 중인 컴포지터/DE 설정에서 아래 명령을 `Ctrl+Shift+M` (또는 원하는 키)에 바인딩하세요:
+대신 앱이 DBus 서비스를 제공하므로, 사용 중인 컴포지터/DE 설정에서 아래 명령을 바인딩하세요:
 
 ```bash
 dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo
 ```
 
 <details>
-<summary>예시: niri</summary>
+<summary>niri</summary>
 
 `config.kdl`의 `binds` 블록에 추가:
 
@@ -82,7 +88,7 @@ Ctrl+Shift+M { spawn "dbus-send" "--session" "--type=method_call" "--dest=com.di
 </details>
 
 <details>
-<summary>예시: Hyprland</summary>
+<summary>Hyprland</summary>
 
 `hyprland.conf`에 추가:
 
@@ -92,10 +98,9 @@ bind = CTRL SHIFT, M, exec, dbus-send --session --type=method_call --dest=com.di
 </details>
 
 <details>
-<summary>예시: GNOME</summary>
+<summary>GNOME</summary>
 
 ```bash
-# 단축키 생성
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/ name 'Distillery 플로팅 메모'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/ command "dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo"
@@ -104,17 +109,13 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 </details>
 
 <details>
-<summary>예시: KDE Plasma</summary>
+<summary>KDE Plasma</summary>
 
 시스템 설정 > 단축키 > 사용자 정의 단축키에서 새 단축키 추가:
 
 - 트리거: `Ctrl+Shift+M`
 - 명령: `dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo`
 </details>
-
-### Linux (X11)
-
-글로벌 단축키 `Ctrl+Shift+M`이 바로 동작합니다.
 
 ---
 
@@ -139,10 +140,8 @@ Desktop     Tauri 2
 ### 설치
 
 ```bash
-# 의존성 설치
 bun install
 
-# 환경 변수 설정
 cp src-tauri/.env.example src-tauri/.env
 # src-tauri/.env 에서 API_BASE_URL 설정
 ```
@@ -150,14 +149,12 @@ cp src-tauri/.env.example src-tauri/.env
 ### 개발
 
 ```bash
-# Tauri 개발 서버 실행
 bun run tauri dev
 ```
 
 ### 빌드
 
 ```bash
-# 프로덕션 빌드
 bun run tauri build
 ```
 
@@ -184,4 +181,4 @@ src-tauri/
 
 ---
 
-<sub>pitch black, amber-lit.</sub>
+<p align="center"><sub>pitch black, amber-lit.</sub></p>

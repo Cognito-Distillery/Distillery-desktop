@@ -1,8 +1,16 @@
-# Distillery
+<p align="center">
+  <img src="src-tauri/icons/128x128.png" width="96" alt="Distillery" />
+</p>
 
-> *Distill thoughts into aged knowledge.*
+<h1 align="center">Distillery</h1>
 
-**[한국어](docs/README_ko.md)**
+<p align="center">
+  <em>Distill thoughts into aged knowledge.</em>
+</p>
+
+<p align="center">
+  <strong><a href="docs/README_ko.md">한국어</a></strong>
+</p>
 
 ---
 
@@ -54,26 +62,26 @@ Pull malts out of the queue. Once they enter the cask, there is no turning back.
 ## Floating Memo (Quick Malt)
 
 A small floating window for capturing thoughts instantly without switching to the main app.
+The app stays in the **system tray** — close the main window and it keeps running in the background.
 
-### macOS
+| Platform | Shortcut | Setup |
+|----------|----------|-------|
+| **macOS** | `Cmd+Shift+M` | Works out of the box |
+| **Windows** | `Ctrl+Shift+M` | Works out of the box |
+| **Linux (X11)** | `Ctrl+Shift+M` | Works out of the box |
+| **Linux (Wayland)** | Any key you choose | Bind a DBus command in your compositor (see below) |
 
-The global shortcut `Cmd+Shift+M` works out of the box.
-
-### Windows
-
-The global shortcut `Ctrl+Shift+M` works out of the box.
-
-### Linux (Wayland)
+### Linux Wayland Setup
 
 Wayland does not support app-level global shortcuts.
-The app exposes a DBus service instead — bind the following command to `Ctrl+Shift+M` (or any key) in your compositor/DE settings:
+The app exposes a DBus service instead — bind the following command in your compositor/DE settings:
 
 ```bash
 dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo
 ```
 
 <details>
-<summary>Example: niri</summary>
+<summary>niri</summary>
 
 Add to your `config.kdl` inside the `binds` block:
 
@@ -85,7 +93,7 @@ Then reload: `niri msg action reload-config`
 </details>
 
 <details>
-<summary>Example: Hyprland</summary>
+<summary>Hyprland</summary>
 
 Add to `hyprland.conf`:
 
@@ -95,10 +103,9 @@ bind = CTRL SHIFT, M, exec, dbus-send --session --type=method_call --dest=com.di
 </details>
 
 <details>
-<summary>Example: GNOME</summary>
+<summary>GNOME</summary>
 
 ```bash
-# Create the shortcut
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/ name 'Distillery Floating Memo'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/ command "dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo"
@@ -107,17 +114,13 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 </details>
 
 <details>
-<summary>Example: KDE Plasma</summary>
+<summary>KDE Plasma</summary>
 
 System Settings > Shortcuts > Custom Shortcuts > Add new shortcut with:
 
 - Trigger: `Ctrl+Shift+M`
 - Command: `dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo`
 </details>
-
-### Linux (X11)
-
-The global shortcut `Ctrl+Shift+M` works out of the box.
 
 ---
 
@@ -142,10 +145,8 @@ Desktop     Tauri 2
 ### Install
 
 ```bash
-# Install dependencies
 bun install
 
-# Set up environment variables
 cp src-tauri/.env.example src-tauri/.env
 # Edit src-tauri/.env and set API_BASE_URL
 ```
@@ -153,14 +154,12 @@ cp src-tauri/.env.example src-tauri/.env
 ### Develop
 
 ```bash
-# Start Tauri dev server
 bun run tauri dev
 ```
 
 ### Build
 
 ```bash
-# Production build
 bun run tauri build
 ```
 
@@ -187,4 +186,4 @@ src-tauri/
 
 ---
 
-<sub>pitch black, amber-lit.</sub>
+<p align="center"><sub>pitch black, amber-lit.</sub></p>
