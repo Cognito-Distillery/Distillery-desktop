@@ -255,7 +255,7 @@ pub async fn malts_queue_batch(
 
 #[tauri::command]
 pub fn get_web_url(state: State<DbState>) -> Result<String, String> {
-    let base = env!("WEB_URL");
+    let base = env!("WEB_BASE_URL");
     let conn = state.0.lock().map_err(|e| e.to_string())?;
     let tokens = db::get_tokens(&conn)?
         .ok_or_else(|| "로그인이 필요합니다".to_string())?;
