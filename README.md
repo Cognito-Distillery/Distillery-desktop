@@ -51,6 +51,76 @@ Pull malts out of the queue. Once they enter the cask, there is no turning back.
 
 ---
 
+## Floating Memo (Quick Malt)
+
+A small floating window for capturing thoughts instantly without switching to the main app.
+
+### macOS
+
+The global shortcut `Cmd+Shift+M` works out of the box.
+
+### Windows
+
+The global shortcut `Ctrl+Shift+M` works out of the box.
+
+### Linux (Wayland)
+
+Wayland does not support app-level global shortcuts.
+The app exposes a DBus service instead — bind the following command to `Ctrl+Shift+M` (or any key) in your compositor/DE settings:
+
+```bash
+dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo
+```
+
+<details>
+<summary>Example: niri</summary>
+
+Add to your `config.kdl` inside the `binds` block:
+
+```kdl
+Ctrl+Shift+M { spawn "dbus-send" "--session" "--type=method_call" "--dest=com.distillery.App" "/com/distillery/App" "com.distillery.App.ToggleFloatingMemo"; }
+```
+
+Then reload: `niri msg action reload-config`
+</details>
+
+<details>
+<summary>Example: Hyprland</summary>
+
+Add to `hyprland.conf`:
+
+```
+bind = CTRL SHIFT, M, exec, dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo
+```
+</details>
+
+<details>
+<summary>Example: GNOME</summary>
+
+```bash
+# Create the shortcut
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/ name 'Distillery Floating Memo'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/ command "dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/distillery/ binding '<Ctrl><Shift>m'
+```
+</details>
+
+<details>
+<summary>Example: KDE Plasma</summary>
+
+System Settings > Shortcuts > Custom Shortcuts > Add new shortcut with:
+
+- Trigger: `Ctrl+Shift+M`
+- Command: `dbus-send --session --type=method_call --dest=com.distillery.App /com/distillery/App com.distillery.App.ToggleFloatingMemo`
+</details>
+
+### Linux (X11)
+
+The global shortcut `Ctrl+Shift+M` works out of the box.
+
+---
+
 ## Tech Stack
 
 ```

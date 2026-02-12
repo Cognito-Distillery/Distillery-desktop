@@ -1,7 +1,7 @@
 use std::sync::Mutex;
 
 use rusqlite::Connection;
-use tauri::State;
+use tauri::{AppHandle, Manager, State};
 
 use crate::api;
 use crate::auth;
@@ -251,4 +251,12 @@ pub async fn malts_queue_batch(
     db::mark_malts_queued(&conn, &items)?;
 
     Ok(items.len() as u32)
+}
+
+#[tauri::command]
+pub fn hide_floating_memo(app: AppHandle) -> Result<(), String> {
+    if let Some(window) = app.get_webview_window("floating-memo") {
+        window.hide().map_err(|e| e.to_string())?;
+    }
+    Ok(())
 }

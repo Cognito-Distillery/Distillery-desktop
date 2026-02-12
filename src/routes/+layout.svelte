@@ -4,8 +4,11 @@
 	import LoginScreen from '$lib/components/LoginScreen.svelte';
 	import { getSidebarPosition, isHorizontal } from '$lib/stores/settings.svelte';
 	import { checkAuth, isAuthLoading, isAuthenticated } from '$lib/stores/auth.svelte';
+	import { getCurrentWindow } from '@tauri-apps/api/window';
 
 	let { children } = $props();
+
+	const isFloating = getCurrentWindow().label === 'floating-memo';
 
 	const layoutClass = $derived(() => {
 		const pos = getSidebarPosition();
@@ -16,11 +19,15 @@
 	});
 
 	$effect(() => {
-		checkAuth();
+		if (!isFloating) {
+			checkAuth();
+		}
 	});
 </script>
 
-{#if isAuthLoading()}
+{#if isFloating}
+	{@render children()}
+{:else if isAuthLoading()}
 	<div class="flex h-screen items-center justify-center">
 		<span class="loading loading-spinner loading-lg text-primary"></span>
 	</div>

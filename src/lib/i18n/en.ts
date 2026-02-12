@@ -136,7 +136,10 @@ const en: Messages = {
 	'help.flow.still': 'Still',
 	'help.flow.queue': 'Queue',
 	'help.flow.distill': 'Distill',
-	'help.flow.cask': 'Cask'
+	'help.flow.cask': 'Cask',
+
+	// Floating
+	'floating.title': 'Quick Malt'
 };
 
 export default en;
