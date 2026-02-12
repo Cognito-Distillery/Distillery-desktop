@@ -39,7 +39,7 @@
 				<path d="M9 5C12.5 5 18 6.5 18 11V12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="text-primary"/>
 				<path d="M18 14.5L16.2 17.2C15.6 18.1 16.3 19.5 17.5 19.5H18.5C19.7 19.5 20.4 18.1 19.8 17.2L18 14.5Z" fill="currentColor" class="text-primary"/>
 			</svg>
-			<h1 class="text-2xl font-bold tracking-tight">Distillery</h1>
+			<h1 class="text-2xl font-bold tracking-tight">Cognito Distillery</h1>
 			<p class="text-sm text-base-content/40 mt-1">{t('login.title')}</p>
 		</div>
 
