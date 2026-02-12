@@ -134,7 +134,10 @@ const ko = {
 	'help.flow.still': '스틸',
 	'help.flow.queue': '대기열',
 	'help.flow.distill': '증류',
-	'help.flow.cask': '캐스크'
+	'help.flow.cask': '캐스크',
+
+	// Floating
+	'floating.title': '빠른 몰팅'
 } as const;
 
 export default ko;
