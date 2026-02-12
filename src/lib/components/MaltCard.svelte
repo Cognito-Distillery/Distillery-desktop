@@ -27,13 +27,21 @@
 	];
 
 	async function handleSetStatus(id: string, status: MaltStatus) {
-		await setMaltStatus(id, status);
-		await loadMalts(currentStatus);
+		try {
+			await setMaltStatus(id, status);
+			await loadMalts(currentStatus);
+		} catch {
+			// toast already shown by store
+		}
 	}
 
 	async function handleDelete(id: string) {
-		await deleteMalt(id);
-		await loadMalts(currentStatus);
+		try {
+			await deleteMalt(id);
+			await loadMalts(currentStatus);
+		} catch {
+			// toast already shown by store
+		}
 	}
 
 	const typeBadgeClass: Record<MaltType, string> = {
@@ -106,6 +114,8 @@
 			});
 			editing = false;
 			await loadMalts(currentStatus);
+		} catch {
+			// toast already shown by store
 		} finally {
 			saving = false;
 		}
@@ -121,6 +131,8 @@
 		try {
 			await queueMalt(malt.id);
 			await loadMalts(currentStatus);
+		} catch {
+			// toast already shown by store
 		} finally {
 			queueing = false;
 		}
@@ -135,6 +147,8 @@
 		try {
 			await drawBackMalt(malt.id, malt.serverId);
 			await loadQueuedMalts();
+		} catch {
+			// toast already shown by store
 		} finally {
 			drawingBack = false;
 		}

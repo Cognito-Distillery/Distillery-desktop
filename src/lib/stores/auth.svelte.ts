@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/core';
 import { getLocale } from '$lib/i18n/index.svelte';
+import { friendlyError } from '$lib/utils/error';
 
 let authenticated = $state(false);
 let loading = $state(true);
@@ -64,7 +65,7 @@ export async function sendOtp(userEmail: string) {
 		email = userEmail;
 		otpSent = true;
 	} catch (e) {
-		error = String(e);
+		error = friendlyError(e);
 	} finally {
 		otpLoading = false;
 	}
@@ -77,14 +78,24 @@ export async function verifyOtp(otp: string) {
 		await invoke('auth_verify_otp', { email, otp, lang: getLocale() });
 		authenticated = true;
 	} catch (e) {
-		error = String(e);
+		error = friendlyError(e);
 	} finally {
 		verifyLoading = false;
 	}
 }
 
 export async function logout() {
-	await invoke('auth_logout');
+	try {
+		await invoke('auth_logout');
+	} catch {
+		// ignore — clear local state regardless
+	}
+	authenticated = false;
+	email = '';
+	resetLoginForm();
+}
+
+export function forceLogout() {
 	authenticated = false;
 	email = '';
 	resetLoginForm();

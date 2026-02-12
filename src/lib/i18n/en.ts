@@ -80,6 +80,17 @@ const en: Messages = {
 	'login.verify': 'Enter',
 	'login.tryOther': 'Try another email',
 
+	// Errors
+	'error.network': 'Unable to connect to the server.',
+	'error.loginRequired': 'Login required.',
+	'error.invalidOtp': 'Invalid access code.',
+	'error.notFound': 'Item not found.',
+	'error.saveFailed': 'Failed to save.',
+	'error.deleteFailed': 'Failed to delete.',
+	'error.queueFailed': 'Failed to add to queue.',
+	'error.drawBackFailed': 'Failed to draw back.',
+	'error.unknown': 'Something went wrong. Please try again.',
+
 	// Settings
 	'settings.title': 'Settings',
 	'settings.account': 'Account',

@@ -16,8 +16,6 @@ jobs:
             args: ''
           - platform: macos-latest
             args: '--target aarch64-apple-darwin'
-          - platform: macos-latest
-            args: '--target x86_64-apple-darwin'
           - platform: windows-latest
             args: ''
 
@@ -38,7 +36,7 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin' || '' }}
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
@@ -51,16 +49,12 @@ jobs:
       - name: Create .env for Tauri build
         shell: bash
         run: |
-          cat <<EOF > src-tauri/.env
-          API_BASE_URL=${{ secrets.API_BASE_URL }}
-          WEB_BASE_URL=${{ secrets.WEB_BASE_URL }}
-          EOF
+          printf 'API_BASE_URL=%s\nWEB_BASE_URL=%s\n' '${{ secrets.API_BASE_URL }}' '${{ secrets.WEB_BASE_URL }}' > src-tauri/.env
 
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NO_STRIP: ${{ matrix.platform == 'ubuntu-22.04' && '1' || '' }}
         with:
           tagName: ${{ github.ref_name }}
           releaseName: 'Distillery ${{ github.ref_name }}'

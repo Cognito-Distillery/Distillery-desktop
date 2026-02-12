@@ -12,6 +12,8 @@
 		try {
 			await queueMaltsBatch();
 			await loadMalts(MaltStatus.ON_STILL);
+		} catch {
+			// toast already shown by store
 		} finally {
 			queueing = false;
 		}

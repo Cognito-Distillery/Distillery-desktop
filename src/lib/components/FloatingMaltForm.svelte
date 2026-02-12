@@ -21,7 +21,11 @@
 	let canSubmit = $derived(selectedType !== null && summary.trim().length > 0 && !saving);
 
 	async function hide() {
-		await invoke('hide_floating_memo');
+		try {
+			await invoke('hide_floating_memo');
+		} catch {
+			// ignore — window hide is best-effort
+		}
 	}
 
 	async function handleSubmit(e: Event) {
@@ -43,6 +47,8 @@
 			memo = '';
 
 			await hide();
+		} catch {
+			// toast already shown by store — keep form values
 		} finally {
 			saving = false;
 		}

@@ -2,6 +2,7 @@
 	import '../app.css';
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import LoginScreen from '$lib/components/LoginScreen.svelte';
+	import Toast from '$lib/components/Toast.svelte';
 	import { getSidebarPosition, isHorizontal } from '$lib/stores/settings.svelte';
 	import { checkAuth, isAuthLoading, isAuthenticated } from '$lib/stores/auth.svelte';
 	import { getCurrentWindow } from '@tauri-apps/api/window';
@@ -42,3 +43,5 @@
 		</main>
 	</div>
 {/if}
+
+<Toast />

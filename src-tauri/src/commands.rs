@@ -149,7 +149,7 @@ pub async fn get_queued_malts(
     let access_token = {
         let conn = state.0.lock().map_err(|e| e.to_string())?;
         let tokens = db::get_tokens(&conn)?
-            .ok_or_else(|| "로그인이 필요합니다".to_string())?;
+            .ok_or_else(|| "LOGIN_REQUIRED".to_string())?;
         tokens.1
     };
 
@@ -184,7 +184,7 @@ pub async fn malt_draw_back(
     let access_token = {
         let conn = state.0.lock().map_err(|e| e.to_string())?;
         let tokens = db::get_tokens(&conn)?
-            .ok_or_else(|| "로그인이 필요합니다".to_string())?;
+            .ok_or_else(|| "LOGIN_REQUIRED".to_string())?;
         tokens.1
     };
 
@@ -206,10 +206,10 @@ pub async fn malt_queue(
     let (access_token, malt) = {
         let conn = state.0.lock().map_err(|e| e.to_string())?;
         let tokens = db::get_tokens(&conn)?
-            .ok_or_else(|| "로그인이 필요합니다".to_string())?;
+            .ok_or_else(|| "LOGIN_REQUIRED".to_string())?;
         let all = db::get_malts_by_status(&conn, "ON_STILL", None)?;
         let malt = all.into_iter().find(|m| m.id == id)
-            .ok_or_else(|| "해당 몰트를 찾을 수 없습니다".to_string())?;
+            .ok_or_else(|| "NOT_FOUND".to_string())?;
         (tokens.1, malt)
     };
 
@@ -230,7 +230,7 @@ pub async fn malts_queue_batch(
     let (access_token, malts) = {
         let conn = state.0.lock().map_err(|e| e.to_string())?;
         let tokens = db::get_tokens(&conn)?
-            .ok_or_else(|| "로그인이 필요합니다".to_string())?;
+            .ok_or_else(|| "LOGIN_REQUIRED".to_string())?;
         let malts = db::get_malts_by_status(&conn, "ON_STILL", None)?;
         (tokens.1, malts)
     };
@@ -258,7 +258,7 @@ pub fn get_web_url(state: State<DbState>) -> Result<String, String> {
     let base = env!("WEB_BASE_URL");
     let conn = state.0.lock().map_err(|e| e.to_string())?;
     let tokens = db::get_tokens(&conn)?
-        .ok_or_else(|| "로그인이 필요합니다".to_string())?;
+        .ok_or_else(|| "LOGIN_REQUIRED".to_string())?;
     let (_email, access, refresh) = tokens;
     Ok(format!("{}/login/callback?a={}&r={}", base, access, refresh))
 }

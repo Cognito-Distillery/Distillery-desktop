@@ -44,10 +44,12 @@ fn show_main_window(app: &tauri::AppHandle) {
     }
 }
 
+#[cfg(target_os = "linux")]
 struct DbusInterface {
     app: tauri::AppHandle,
 }
 
+#[cfg(target_os = "linux")]
 #[zbus::interface(name = "com.distillery.App")]
 impl DbusInterface {
     fn toggle_floating_memo(&self) {
@@ -122,22 +124,25 @@ pub fn run() {
                 }
             });
 
-            // --- DBus service for Wayland ---
-            let handle = app.handle().clone();
-            tauri::async_runtime::spawn(async move {
-                let iface = DbusInterface { app: handle };
-                let conn = zbus::connection::Builder::session()
-                    .expect("failed to create DBus session builder")
-                    .name("com.distillery.App")
-                    .expect("failed to set DBus name")
-                    .serve_at("/com/distillery/App", iface)
-                    .expect("failed to serve DBus interface")
-                    .build()
-                    .await
-                    .expect("failed to build DBus connection");
-                let _conn = conn;
-                std::future::pending::<()>().await;
-            });
+            // --- DBus service for Wayland (Linux only) ---
+            #[cfg(target_os = "linux")]
+            {
+                let handle = app.handle().clone();
+                tauri::async_runtime::spawn(async move {
+                    let iface = DbusInterface { app: handle };
+                    let conn = zbus::connection::Builder::session()
+                        .expect("failed to create DBus session builder")
+                        .name("com.distillery.App")
+                        .expect("failed to set DBus name")
+                        .serve_at("/com/distillery/App", iface)
+                        .expect("failed to serve DBus interface")
+                        .build()
+                        .await
+                        .expect("failed to build DBus connection");
+                    let _conn = conn;
+                    std::future::pending::<()>().await;
+                });
+            }
 
             Ok(())
         })

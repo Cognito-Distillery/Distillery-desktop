@@ -4,10 +4,16 @@
 	import { t } from '$lib/i18n/index.svelte';
 	import { openUrl } from '@tauri-apps/plugin-opener';
 	import { invoke } from '@tauri-apps/api/core';
+	import { friendlyError } from '$lib/utils/error';
+	import { showToast } from '$lib/stores/toast.svelte';
 
 	async function goToWeb() {
-		const url = await invoke<string>('get_web_url');
-		await openUrl(url);
+		try {
+			const url = await invoke<string>('get_web_url');
+			await openUrl(url);
+		} catch (e) {
+			showToast(friendlyError(e));
+		}
 	}
 
 	const links = [

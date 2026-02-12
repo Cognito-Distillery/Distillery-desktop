@@ -21,19 +21,23 @@
 		e.preventDefault();
 		if (!selectedType || !summary.trim()) return;
 
-		await addMalt({
-			type: selectedType,
-			summary: summary.trim(),
-			context: context.trim(),
-			memo: memo.trim()
-		});
+		try {
+			await addMalt({
+				type: selectedType,
+				summary: summary.trim(),
+				context: context.trim(),
+				memo: memo.trim()
+			});
 
-		selectedType = null;
-		summary = '';
-		context = '';
-		memo = '';
+			selectedType = null;
+			summary = '';
+			context = '';
+			memo = '';
 
-		await loadMalts(MaltStatus.MALT_HOUSE);
+			await loadMalts(MaltStatus.MALT_HOUSE);
+		} catch {
+			// toast already shown by store — keep form values
+		}
 	}
 
 	let canSubmit = $derived(selectedType !== null && summary.trim().length > 0);

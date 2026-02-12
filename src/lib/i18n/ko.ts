@@ -78,6 +78,17 @@ const ko = {
 	'login.verify': '입장하기',
 	'login.tryOther': '다른 이메일로 시도',
 
+	// Errors
+	'error.network': '서버에 연결할 수 없습니다.',
+	'error.loginRequired': '로그인이 필요합니다.',
+	'error.invalidOtp': '인증 코드가 올바르지 않습니다.',
+	'error.notFound': '해당 항목을 찾을 수 없습니다.',
+	'error.saveFailed': '저장에 실패했습니다.',
+	'error.deleteFailed': '삭제에 실패했습니다.',
+	'error.queueFailed': '대기열 추가에 실패했습니다.',
+	'error.drawBackFailed': '드로우백에 실패했습니다.',
+	'error.unknown': '문제가 발생했습니다. 다시 시도해주세요.',
+
 	// Settings
 	'settings.title': '설정',
 	'settings.account': '계정',
