@@ -27,6 +27,7 @@ const ko = {
 	'nav.maltHouse': '몰트 하우스',
 	'nav.still': '스틸',
 	'nav.drawback': '드로우백',
+	'nav.goToWeb': '웹으로 이동',
 	'nav.help': '도움말',
 	'nav.settings': '설정',
 

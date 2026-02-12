@@ -29,6 +29,7 @@ const en: Messages = {
 	'nav.maltHouse': 'Malt House',
 	'nav.still': 'Still',
 	'nav.drawback': 'Draw Back',
+	'nav.goToWeb': 'Go to Web',
 	'nav.help': 'Help',
 	'nav.settings': 'Settings',
 

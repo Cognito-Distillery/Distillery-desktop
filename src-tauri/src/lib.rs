@@ -165,6 +165,7 @@ pub fn run() {
             commands::malt_draw_back,
             commands::malt_queue,
             commands::malts_queue_batch,
+            commands::get_web_url,
             commands::hide_floating_memo,
         ])
         .run(tauri::generate_context!())

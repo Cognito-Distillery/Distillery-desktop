@@ -2,6 +2,13 @@
 	import { page } from '$app/state';
 	import { isHorizontal } from '$lib/stores/settings.svelte';
 	import { t } from '$lib/i18n/index.svelte';
+	import { openUrl } from '@tauri-apps/plugin-opener';
+	import { invoke } from '@tauri-apps/api/core';
+
+	async function goToWeb() {
+		const url = await invoke<string>('get_web_url');
+		await openUrl(url);
+	}
 
 	const links = [
 		{ href: '/', titleKey: 'nav.malting' as const, icon: 'plus' },
@@ -57,6 +64,15 @@
 		</div>
 
 		<div class="flex items-center gap-1">
+			<button
+				onclick={goToWeb}
+				class="w-9 h-9 flex items-center justify-center rounded-lg transition-colors {inactiveClass}"
+				title={t('nav.goToWeb')}
+			>
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+				</svg>
+			</button>
 			<a
 				href="/help"
 				class="w-9 h-9 flex items-center justify-center rounded-lg transition-colors {isActive('/help') ? activeClass : inactiveClass}"
@@ -117,6 +133,15 @@
 		</div>
 
 		<div class="flex flex-col items-center gap-1">
+			<button
+				onclick={goToWeb}
+				class="w-9 h-9 flex items-center justify-center rounded-lg transition-colors {inactiveClass}"
+				title={t('nav.goToWeb')}
+			>
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+				</svg>
+			</button>
 			<a
 				href="/help"
 				class="w-9 h-9 flex items-center justify-center rounded-lg transition-colors {isActive('/help') ? activeClass : inactiveClass}"
