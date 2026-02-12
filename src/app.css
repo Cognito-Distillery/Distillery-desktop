@@ -45,6 +45,7 @@
 
 /* sharp font rendering */
 body {
+  font-family: 'Nanum Myeongjo', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
