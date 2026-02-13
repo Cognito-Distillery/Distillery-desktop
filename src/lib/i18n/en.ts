@@ -150,6 +150,18 @@ const en: Messages = {
 	'help.flow.distill': 'Distill',
 	'help.flow.cask': 'Cask',
 
+	// Update
+	'update.check': 'Check for updates',
+	'update.checking': 'Checking...',
+	'update.available': 'New version available: v{version}',
+	'update.downloading': 'Downloading...',
+	'update.readyToInstall': 'Ready to install. Restarting app.',
+	'update.upToDate': 'You are up to date.',
+	'update.failed': 'Failed to check for updates.',
+	'update.install': 'Install update',
+	'update.version': 'Version',
+	'update.app': 'App',
+
 	// Floating
 	'floating.title': 'Quick Malt'
 };

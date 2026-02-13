@@ -6,6 +6,10 @@
 	import { getLocale, setLocale } from '$lib/i18n/index.svelte';
 	import type { Locale } from '$lib/i18n/index.svelte';
 	import type { MessageKey } from '$lib/i18n/index.svelte';
+	import { check } from '@tauri-apps/plugin-updater';
+	import { relaunch } from '@tauri-apps/plugin-process';
+
+	const APP_VERSION = __APP_VERSION__;
 
 	const positions: { value: SidebarPosition; titleKey: MessageKey }[] = [
 		{ value: 'top', titleKey: 'settings.pos.top' },
@@ -18,6 +22,38 @@
 		{ value: 'ko', label: '한국어' },
 		{ value: 'en', label: 'English' }
 	];
+
+	let updateStatus: 'idle' | 'checking' | 'available' | 'downloading' | 'ready' | 'upToDate' | 'error' = $state('idle');
+	let updateVersion = $state('');
+
+	async function checkForUpdates() {
+		updateStatus = 'checking';
+		try {
+			const update = await check();
+			if (update) {
+				updateVersion = update.version;
+				updateStatus = 'available';
+			} else {
+				updateStatus = 'upToDate';
+			}
+		} catch {
+			updateStatus = 'error';
+		}
+	}
+
+	async function installUpdate() {
+		updateStatus = 'downloading';
+		try {
+			const update = await check();
+			if (update) {
+				await update.downloadAndInstall();
+				updateStatus = 'ready';
+				await relaunch();
+			}
+		} catch {
+			updateStatus = 'error';
+		}
+	}
 </script>
 
 <div class="max-w-lg mx-auto flex flex-col gap-8">
@@ -76,6 +112,45 @@
 					</button>
 				{/each}
 			</div>
+		</div>
+	</section>
+
+	<section class="border border-base-300 rounded-lg p-5">
+		<h2 class="text-xs font-medium text-base-content/40 uppercase tracking-wider mb-4">{t('update.app')}</h2>
+
+		<div class="flex items-center justify-between">
+			<div class="flex flex-col gap-0.5">
+				<span class="text-sm font-medium">{t('update.version')}</span>
+				<span class="text-xs text-base-content/35">v{APP_VERSION}</span>
+			</div>
+
+			{#if updateStatus === 'idle'}
+				<button class="btn btn-outline btn-sm" onclick={checkForUpdates}>
+					{t('update.check')}
+				</button>
+			{:else if updateStatus === 'checking'}
+				<span class="text-sm text-base-content/50">{t('update.checking')}</span>
+			{:else if updateStatus === 'available'}
+				<div class="flex items-center gap-3">
+					<span class="text-sm text-success">{t('update.available').replace('{version}', updateVersion)}</span>
+					<button class="btn btn-primary btn-sm" onclick={installUpdate}>
+						{t('update.install')}
+					</button>
+				</div>
+			{:else if updateStatus === 'downloading'}
+				<span class="text-sm text-base-content/50">{t('update.downloading')}</span>
+			{:else if updateStatus === 'ready'}
+				<span class="text-sm text-success">{t('update.readyToInstall')}</span>
+			{:else if updateStatus === 'upToDate'}
+				<span class="text-sm text-base-content/50">{t('update.upToDate')}</span>
+			{:else if updateStatus === 'error'}
+				<div class="flex items-center gap-3">
+					<span class="text-sm text-error">{t('update.failed')}</span>
+					<button class="btn btn-outline btn-sm" onclick={checkForUpdates}>
+						{t('update.check')}
+					</button>
+				</div>
+			{/if}
 		</div>
 	</section>
 </div>
