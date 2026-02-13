@@ -147,7 +147,7 @@ Desktop     Tauri 2
 ```bash
 bun install
 
-cp src-tauri/.env.sample src-tauri/.env
+cp src-tauri/.env.example src-tauri/.env
 # Edit src-tauri/.env and set API_BASE_URL, WEB_BASE_URL
 ```
 

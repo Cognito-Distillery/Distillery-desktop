@@ -142,7 +142,7 @@ Desktop     Tauri 2
 ```bash
 bun install
 
-cp src-tauri/.env.sample src-tauri/.env
+cp src-tauri/.env.example src-tauri/.env
 # src-tauri/.env 에서 API_BASE_URL, WEB_BASE_URL 설정
 ```
 
