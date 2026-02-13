@@ -148,6 +148,18 @@ const ko = {
 	'help.flow.distill': '증류',
 	'help.flow.cask': '캐스크',
 
+	// Update
+	'update.check': '업데이트 확인',
+	'update.checking': '확인 중...',
+	'update.available': '새 버전이 있습니다: v{version}',
+	'update.downloading': '다운로드 중...',
+	'update.readyToInstall': '설치 준비 완료. 앱을 재시작합니다.',
+	'update.upToDate': '최신 버전입니다.',
+	'update.failed': '업데이트 확인에 실패했습니다.',
+	'update.install': '업데이트 설치',
+	'update.version': '버전',
+	'update.app': '앱',
+
 	// Floating
 	'floating.title': '빠른 몰팅'
 } as const;
