@@ -142,8 +142,8 @@ Desktop     Tauri 2
 ```bash
 bun install
 
-cp src-tauri/.env.example src-tauri/.env
-# src-tauri/.env 에서 API_BASE_URL 설정
+cp src-tauri/.env.sample src-tauri/.env
+# src-tauri/.env 에서 API_BASE_URL, WEB_BASE_URL 설정
 ```
 
 ### 개발
@@ -157,6 +157,32 @@ bun run tauri dev
 ```bash
 bun run tauri build
 ```
+
+### 릴리즈 (포크 시)
+
+1. 서명 키 생성:
+
+```bash
+bun tauri signer generate -w ~/.tauri/distillery.key
+```
+
+2. GitHub **Repository Secrets** 등록 (Settings → Secrets and variables → Actions):
+
+| Secret | 값 |
+|--------|---|
+| `API_BASE_URL` | API 서버 URL |
+| `WEB_BASE_URL` | 웹 앱 URL |
+| `TAURI_SIGNING_PRIVATE_KEY` | 생성된 `.key` 파일의 내용 |
+| `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` | 키 생성 시 입력한 비밀번호 |
+
+3. 버전 태그를 푸시하면 빌드가 시작됩니다:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+GitHub에 Linux, macOS, Windows 빌드가 포함된 draft release가 생성됩니다.
 
 ---
 

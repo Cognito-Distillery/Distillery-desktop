@@ -147,8 +147,8 @@ Desktop     Tauri 2
 ```bash
 bun install
 
-cp src-tauri/.env.example src-tauri/.env
-# Edit src-tauri/.env and set API_BASE_URL
+cp src-tauri/.env.sample src-tauri/.env
+# Edit src-tauri/.env and set API_BASE_URL, WEB_BASE_URL
 ```
 
 ### Develop
@@ -162,6 +162,32 @@ bun run tauri dev
 ```bash
 bun run tauri build
 ```
+
+### Release (for forks)
+
+1. Generate a signing key:
+
+```bash
+bun tauri signer generate -w ~/.tauri/distillery.key
+```
+
+2. Add the following **Repository Secrets** in GitHub (Settings → Secrets and variables → Actions):
+
+| Secret | Value |
+|--------|-------|
+| `API_BASE_URL` | Your API server URL |
+| `WEB_BASE_URL` | Your web app URL |
+| `TAURI_SIGNING_PRIVATE_KEY` | Contents of the generated `.key` file |
+| `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` | Password used during key generation |
+
+3. Push a version tag to trigger the build:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+A draft release will be created on GitHub with builds for Linux, macOS, and Windows.
 
 ---
 
